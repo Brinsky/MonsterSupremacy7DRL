@@ -1,0 +1,28 @@
+body
+{
+	background-color: #444444;
+}
+
+table.center
+{
+	margin-left:auto; 
+	margin-right:auto;
+}
+
+table, th, td 
+{
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+th, td 
+{
+    padding: 5px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+td
+{
+	text-align: left;
+}
