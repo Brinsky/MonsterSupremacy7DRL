@@ -1,6 +1,9 @@
 body
 {
 	background-color: #444444;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	color: white;
+	text-align: center;
 }
 
 table.center
@@ -25,4 +28,20 @@ th, td
 td
 {
 	text-align: left;
+}
+
+a:link, a:visited {
+	color: #bfbfbf;
+}
+a:active, a:hover {
+	color: #bfbfbf;
+}
+p.header {
+	font-size: small;
+}
+p.header span {
+	font-weight: bold;
+}
+p.footer {
+	font-size: x-small;
 }

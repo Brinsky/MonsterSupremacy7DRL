@@ -1,134 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+		<meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>Monster Supremacy</title>
-		<script type='text/javascript' src='https://ssl-webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/jquery.min.js'></script>
-		<script type="text/javascript">
-		<!--
-		var unityObjectUrl = "http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js";
-		if (document.location.protocol == 'https:')
-			unityObjectUrl = unityObjectUrl.replace("http://", "https://ssl-");
-		document.write('<script type="text\/javascript" src="' + unityObjectUrl + '"><\/script>');
-		-->
-		</script>
-		<script type="text/javascript">
-		<!--
-			var config = {
-				width: 640, 
-				height: 480,
-				params: { enableDebugging:"0" }
-				
-			};
-			var u = new UnityObject2(config);
-			
-			jQuery(function() {
-
-				var $missingScreen = jQuery("#unityPlayer").find(".missing");
-				var $brokenScreen = jQuery("#unityPlayer").find(".broken");
-				$missingScreen.hide();
-				$brokenScreen.hide();
-
-				u.observeProgress(function (progress) {
-					switch(progress.pluginStatus) {
-						case "broken":
-							$brokenScreen.find("a").click(function (e) {
-								e.stopPropagation();
-								e.preventDefault();
-								u.installPlugin();
-								return false;
-							});
-							$brokenScreen.show();
-						break;
-						case "missing":
-							$missingScreen.find("a").click(function (e) {
-								e.stopPropagation();
-								e.preventDefault();
-								u.installPlugin();
-								return false;
-							});
-							$missingScreen.show();
-						break;
-						case "installed":
-							$missingScreen.remove();
-						break;
-						case "first":
-						break;
-					}
-				});
-				u.initPlugin(jQuery("#unityPlayer")[0], "MonsterSupremacyWeb.unity3d");
-			});
-		-->
-		</script>
-		<style type="text/css">
-		<!--
-		body {
-			font-family: Helvetica, Verdana, Arial, sans-serif;
-			background-color: black;
-			color: white;
-			text-align: center;
-		}
-		a:link, a:visited {
-			color: #bfbfbf;
-		}
-		a:active, a:hover {
-			color: #bfbfbf;
-		}
-		p.header {
-			font-size: small;
-		}
-		p.header span {
-			font-weight: bold;
-		}
-		p.footer {
-			font-size: x-small;
-		}
-		div.content {
-			margin: auto;
-			width: 640px;
-		}
-		div.broken,
-		div.missing {
-			margin: auto;
-			position: relative;
-			top: 50%;
-			width: 193px;
-		}
-		div.broken a,
-		div.missing a {
-			height: 63px;
-			position: relative;
-			top: -31px;
-		}
-		div.broken img,
-		div.missing img {
-			border-width: 0px;
-		}
-		div.broken {
-			display: none;
-		}
-		div#unityPlayer {
-			cursor: default;
-			height: 480px;
-			width: 640px;
-		}
-		-->
-		</style>
-		<link rel="stylesheet" type="text/css" href="style.css"></link>
+		<link rel="shortcut icon" href="TemplateData/favicon.ico">
+		<link rel="stylesheet" href="TemplateData/style.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 		<h1 class="header">Monster Supremacy</h1>
 		<p>A 7DRL (Seven Day Rogue-Like) created by Omar Mustardo and Brian Stottler. Scroll down for controls, and read more about the game <a href="https://docs.google.com/document/d/1cAKJCEMvw6hIQMfntmWTuAezRpehKfd1JoEgz3pDBco/edit?usp=sharing" title="Read about the game">here</a>.</p>
-		<div class="content">
-			<div id="unityPlayer">
-				<div class="missing">
-					<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
-						<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
-					</a>
-				</div>
+		<div id="unity-container" class="unity-desktop">
+		  <div id="unity-loading-bar">
+			<div id="unity-logo"></div>
+			<div id="unity-progress-bar-empty">
+			  <div id="unity-progress-bar-full"></div>
 			</div>
+		  </div>
+		  <canvas id="unity-canvas"></canvas>
+		  <div id="unity-mobile-warning">
+			WebGL builds are not supported on mobile devices.
+		  </div>
+		  <div id="unity-footer">
+			<div id="unity-webgl-logo"></div>
+			<div id="unity-fullscreen-button"></div>
+		  </div>
 		</div>
-		<p class="footer">&laquo; created with <a href="http://unity3d.com/unity/" title="Go to unity3d.com">Unity 4.6.3f1</a> &raquo;</p>
+		<p class="footer">&laquo; created with <a href="http://unity3d.com/unity/" title="Go to unity3d.com">Unity 2020.3.11f1</a> &raquo;</p>
 		<h2>Controls</h2>
 		<table class="center">
 			<tr>
@@ -163,10 +62,64 @@
 				<td>Cancel / Return to Menu</td>
 				<td>Escape</td>
 			</tr>
-		</table> 
-		<p>
-			<a href="http://validator.w3.org/check?uri=referer"><img
-			src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
-		</p>
+		</table>
+		<script>
+		  var buildUrl = "Build";
+		  var loaderUrl = buildUrl + "/Build.loader.js";
+		  var config = {
+			dataUrl: buildUrl + "/Build.data.br",
+			frameworkUrl: buildUrl + "/Build.framework.js.br",
+			codeUrl: buildUrl + "/Build.wasm.br",
+			streamingAssetsUrl: "StreamingAssets",
+			companyName: "Omar Mustardo and Brian Stottler",
+			productName: "Monster Supremacy",
+			productVersion: "1.0",
+		  };
+
+		  var container = document.querySelector("#unity-container");
+		  var canvas = document.querySelector("#unity-canvas");
+		  var loadingBar = document.querySelector("#unity-loading-bar");
+		  var progressBarFull = document.querySelector("#unity-progress-bar-full");
+		  var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+		  var mobileWarning = document.querySelector("#unity-mobile-warning");
+
+		  // By default Unity keeps WebGL canvas render target size matched with
+		  // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+		  // Set this to false if you want to decouple this synchronization from
+		  // happening inside the engine, and you would instead like to size up
+		  // the canvas DOM size and WebGL render target sizes yourself.
+		  // config.matchWebGLToCanvasSize = false;
+
+		  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+			container.className = "unity-mobile";
+			// Avoid draining fillrate performance on mobile devices,
+			// and default/override low DPI mode on mobile browsers.
+			config.devicePixelRatio = 1;
+			mobileWarning.style.display = "block";
+			setTimeout(() => {
+			  mobileWarning.style.display = "none";
+			}, 5000);
+		  } else {
+			canvas.style.width = "960px";
+			canvas.style.height = "600px";
+		  }
+		  loadingBar.style.display = "flex";
+
+		  var script = document.createElement("script");
+		  script.src = loaderUrl;
+		  script.onload = () => {
+			createUnityInstance(canvas, config, (progress) => {
+			  progressBarFull.style.width = 100 * progress + "%";
+			}).then((unityInstance) => {
+			  loadingBar.style.display = "none";
+			  fullscreenButton.onclick = () => {
+				unityInstance.SetFullscreen(1);
+			  };
+			}).catch((message) => {
+			  alert(message);
+			});
+		  };
+		  document.body.appendChild(script);
+		</script>
 	</body>
 </html>
