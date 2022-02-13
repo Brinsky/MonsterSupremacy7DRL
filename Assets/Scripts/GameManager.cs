@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Tiles;
 using UnityEngine.UI;
 using System;
-
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour 
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         // Victory condition
         if (Floor == 0)
-            Application.LoadLevel("Victory");
+            SceneManager.LoadScene("Victory");
 
         // Generate the new level
         Level = new Level(Floor, Random.Range(30, 40), Random.Range(30, 40));
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextFloor()
     {
         // Reload the scene
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         // Prepare the transition data
         PersistentData transition = new PersistentData();
@@ -193,7 +193,7 @@ public class GameManager : MonoBehaviour
 
         Level = null;
 
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // Centers the camera on the player and zooms it in

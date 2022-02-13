@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ReturnToMenu : MonoBehaviour 
 {
@@ -11,6 +12,6 @@ public class ReturnToMenu : MonoBehaviour
 	void Update () 
     {
         if (Input.GetAxisRaw("Cancel") == 1)
-            Application.LoadLevel("Menu");
+            SceneManager.LoadScene("Menu");
 	}
 }

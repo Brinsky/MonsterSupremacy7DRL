@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TextBlink : MonoBehaviour 
@@ -17,7 +18,7 @@ public class TextBlink : MonoBehaviour
     void Update()
     {
         if (Input.GetAxisRaw("Start / Consume") == 1)
-            Application.LoadLevel("Main");
+            SceneManager.LoadScene("Main");
 
         if (Input.GetAxisRaw("Cancel") == 1)
             Application.Quit();

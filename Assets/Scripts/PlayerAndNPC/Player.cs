@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : Organism
@@ -62,7 +63,7 @@ public class Player : Organism
         base.Update();
 
         if (Input.GetAxisRaw("Cancel") == 1)
-            Application.LoadLevel("Menu");
+            SceneManager.LoadScene("Menu");
 
     #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -178,6 +179,6 @@ public class Player : Organism
 
     protected override void OnDeath()
     {
-        Application.LoadLevel("Menu");
+        SceneManager.LoadScene("Menu");
     }
 }
